@@ -10,6 +10,6 @@
     "jade": "*",
     "ejs": "~0.8.4",
     "mongodb" : ">= 0.9.9",
-    "connect-mongo": ">= 0.1"
+    "connect-mongo": ">= 0.1.7"
   }
 }
