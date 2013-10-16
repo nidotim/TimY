@@ -8,6 +8,8 @@ var routes = require('./routes');
 var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
+var util = require('util');
+
 
 var app = express();
 
@@ -28,8 +30,13 @@ if ('development' == app.get('env')) {
 }
 
 app.get('/', routes.index);
-app.get('/users', user.list);
-app.get('/hello', routes.hello);
+app.get('/users', routes.user);
+app.get('/post', routes.post);
+app.get('/reg', routes.reg);
+app.post('reg', routes.doReg);
+app.get('/login', routes.login);
+app.post('/login', routes.doLogin);
+app.get('/logout', routes.logout);
 
 //Tim start
 var users = {
@@ -38,7 +45,7 @@ var users = {
 		website: 'http://www.byvoid.com'
 	}
 };
-
+/*
 app.all('/user/:username', function(req, res, next){
 	if(users[req.params.username]){
 		next();
@@ -51,6 +58,9 @@ app.all('/user/:username', function(req, res, next){
 app.get('/user/:username', function(req, res){
 	res.send('user: ' + req.params.username);
 });
+*/
+
+
 
 
 //Tim end

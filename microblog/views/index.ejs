@@ -1,2 +1,39 @@
-<h1> <%= title %></h1>
-<p> Welcome to <%= title %></p>
+<% include layout %>
+
+<div class="hero-unit">
+	<h1>歡迎來到 Microblog</h1>
+	<p>Microblog是一個以nod.js為基礎的微薄系統</p>
+	<p>
+		<a class="btn btn-primary btn-large" href="/login">登入</a>
+		<a class="btn btn-large" href="/reg">立即註冊</a>
+	</p>
+</div>
+
+<div class="row">
+	<div class="span4">
+		<h2>Carbo 說</h2>
+		<p> Carbo</p>
+	</div>
+
+	<div class="span4">
+		<h2>BYVoid 說</h2>
+		<p>BYVoid</p>
+	</div>
+
+	<div class="span4">
+		<h2>佛振 說</h2>
+		<p>Hello</p>
+	</div>
+</div>
+
+
+<hr/>
+			<footer>
+				<p><a href="http://www.byvoid.com/" target="blank">BYVoid</a> 2012</p>
+			</footer>
+		</div>
+	</body>
+
+	<script type="text/javascript" src="/javascripts/jquery.min.js"></sccript>
+	<script type="text/javascript" src="/javascripts/bootstrap.min.js"></script>
+</html>
