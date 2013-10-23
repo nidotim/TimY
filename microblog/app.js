@@ -10,6 +10,7 @@ var http = require('http');
 var path = require('path');
 var util = require('util');
 
+
 var MongoStore = require('connect-mongo')(express);
 var settings = require('../settings');
 
@@ -21,7 +22,7 @@ var db = new mongodb.Db('mydb', mongodbServer);
 /* open db */
 db.open(function() {
     /* Select 'contact' collection */
-    db.collection('contact', function(err, collection) {
+    db.collection('users', function(err, collection) {
         /* Insert a data */
 /*        
         collection.insert({
@@ -40,10 +41,10 @@ db.open(function() {
         });
 */
         /* Querying */
-        collection.find({ name: 'Fred Chien' }, function(err, data) {
-            /* Found this People */
+        collection.find( { name : "Tim" }, function(err, data) {
+            /* Found this People */            
             if (data) {
-                console.log('Name: ' + data.name + ', email: ' + data.email);                
+                console.log('Name: ' + data.name + ', email: ' + data.password);                
             } else {
                 console.log('Cannot found');
             }
@@ -54,7 +55,7 @@ db.open(function() {
 var app = express();
 
 // all environments
-//app.configure(function(){
+app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
@@ -62,20 +63,28 @@ var app = express();
 	app.use(express.logger('dev'));
 	app.use(express.bodyParser());
 	app.use(express.methodOverride());
-		
 	app.use(express.cookieParser());
-/*
+
 	app.use(express.session({
 		secret: settings.cookieSecret,
 		store: new MongoStore({
 			db: settings.db
 		})
 	}));
-*/
+
+	app.use(function(req, res, next){
+    	res.locals.user = req.session.user;
+    	res.locals.error = req.session.error;
+    	res.locals.success = req.session.success;
+    	next();
+  	});
+
 	app.use(app.router);
+	
+
 	//app.use(express.router(routes));
 	app.use(express.static(path.join(__dirname, 'public')));
-//});
+});
 
 // development only
 if ('development' == app.get('env')) {
@@ -98,6 +107,8 @@ var users = {
 		website: 'http://www.byvoid.com'
 	}
 };
+
+
 /*
 app.all('/user/:username', function(req, res, next){
 	if(users[req.params.username]){
