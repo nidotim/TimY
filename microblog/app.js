@@ -9,7 +9,7 @@ var user = require('./routes/user');
 var http = require('http');
 var path = require('path');
 var util = require('util');
-
+var partials = require('express-partials')
 
 var MongoStore = require('connect-mongo')(express);
 var settings = require('../settings');
@@ -55,7 +55,7 @@ db.open(function() {
 var app = express();
 
 // all environments
-app.configure(function(){
+//app.configure(function(){
 	app.set('port', process.env.PORT || 3000);
 	app.set('views', __dirname + '/views');
 	app.set('view engine', 'ejs');
@@ -78,19 +78,24 @@ app.configure(function(){
     	res.locals.success = req.session.success;
     	next();
   	});
-
+	app.use(partials());
 	app.use(app.router);
+	//app.use(express.router(routes));
 	
+routes(app);
 
 	//app.use(express.router(routes));
 	app.use(express.static(path.join(__dirname, 'public')));
-});
+//});
+
+
+
 
 // development only
 if ('development' == app.get('env')) {
   app.use(express.errorHandler());
 }
-
+/*
 app.get('/', routes.index);
 app.get('/users', routes.user);
 app.get('/post', routes.post);
@@ -99,7 +104,7 @@ app.post('/reg', routes.doReg);
 app.get('/login', routes.login);
 app.post('/login', routes.doLogin);
 app.get('/logout', routes.logout);
-
+*/
 //Tim start
 var users = {
 	'byvoid':{
